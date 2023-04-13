@@ -1,2 +1,1 @@
-# EssayBot
-A Essay Summariser 
+# Essay Bot
