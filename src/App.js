@@ -27,10 +27,14 @@ function apiCall() {
     });
 }
 
+
 function App() {
   return (
     <div className="App">
-      <h1>Welcome To EssayBot</h1>
+      <div className='App-header'>
+        <h1>Essay Bot</h1>
+      </div>
+
       <label style={{ color: "red", fontSize: "18px", textAlign: "left" }}>
         <b>Enter Your Topic</b>
       </label>
