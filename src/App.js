@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+import { InputTextarea } from 'primereact/inputtextarea';
 import axios from "axios";
 import "./App.css";
 
@@ -29,21 +32,26 @@ function apiCall() {
 
 
 function App() {
+
+  const [value, setValue] = useState('');
+  const [output, setOutput] = useState('');
+
   return (
     <div className="App">
-      <div className='App-header'>
+      <div className='App-header m-2'>
         <h1>Essay Bot</h1>
       </div>
-
-      <label style={{ color: "red", fontSize: "18px", textAlign: "left" }}>
-        <b>Enter Your Topic</b>
-      </label>
-      <input
-        id="inputtext"
-        type="text"
-        style={{ border: "1px solid black", padding: "5px", fontSize: "16px" }}
-      />
-      <button onClick={() => apiCall()}>Create Essay</button>
+      <h3>Write better essays, in less time, with your AI writing assistant</h3>
+      <div className='input'>
+        <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText placeholder="Enter your title" value={value} onChange={(e) => setValue(e.target.value)} style={{ minWidth: "500px" }} />
+        </span>
+        <Button className="ml-2" label="Submit" onClick={() => apiCall()} />
+      </div>
+      <div className='output'>
+        <InputTextarea className="overflow-auto text-lg m-4" value={output} onChange={(e) => setOutput(e.target.value)} rows={20} cols={30} style={{ minWidth: "75%", maxWidth: "75%" }} />
+      </div>
     </div>
   );
 }
