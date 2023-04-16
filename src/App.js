@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { InputTextarea } from 'primereact/inputtextarea';
-import axios from "axios";
+import { Configuration, OpenAIApi } from "openai";
 import "./App.css";
 
 function App() {
@@ -10,30 +10,20 @@ function App() {
   const [value, setValue] = useState('');
   const [output, setOutput] = useState('');
 
-  function generateEssay() {
-    const openaiApiUrl = "https://api.openai.com/v1/completions";
+  const configuration = new Configuration({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+  const openai = new OpenAIApi(configuration);
 
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer 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`,
-    };
-
-    const data = {
+  const generateEssay = async () => {
+    const response = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: value,
-      max_tokens: 400,
+      prompt: value, // Input for openai
       temperature: 1,
-    };
-
-    axios
-      .post(openaiApiUrl, data, { headers })
-      .then((response) => {
-        setOutput(response.data.choices[0]);
-        console.log(response.data.choices[0]);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      max_tokens: 400,
+    });
+    console.log(response);
+    setOutput(response.data.choices[0]);
   }
 
   return (
